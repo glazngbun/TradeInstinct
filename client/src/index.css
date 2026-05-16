@@ -1,0 +1,191 @@
+/* index.css - Rebuilt for TradeInstinct with New Sophisticated Palette */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root {
+  /* Colors from image_4.png */
+  --deep-charcoal: #32292F;
+  --mint-highlight: #99E1D9;
+  --off-white: #F0F7F4;
+  --slate-teal: #70ABAF;
+  --muted-earth: #705D56;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+
+  /* Using a gradient of the teal and mint for a fresh, professional backdrop */
+  background: linear-gradient(
+    135deg,
+    var(--slate-teal),
+    var(--mint-highlight)
+  );
+
+  min-height: 100vh;
+}
+
+/* PAGE */
+
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* CARD */
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  
+  /* Using the off-white from the palette for the card surface */
+  background: rgba(240, 247, 244, 0.96); 
+  backdrop-filter: blur(14px);
+  
+  /* Subtle border using the slate teal */
+  border: 1px solid rgba(112, 171, 175, 0.3);
+  
+  border-radius: 28px;
+  padding: 42px;
+  
+  /* Soft shadow using the charcoal tone */
+  box-shadow: 0 10px 40px rgba(50, 41, 47, 0.1);
+  
+  animation: fadeUp .35s ease;
+}
+
+/* LOGO */
+
+.logo {
+  font-size: 2.1rem;
+  font-weight: 700;
+  
+  /* Using the deep charcoal for strong branding */
+  color: var(--deep-charcoal);
+  
+  text-align: center;
+  margin-bottom: 34px;
+  letter-spacing: -1px;
+}
+
+/* HEADINGS */
+
+.auth-card h2 {
+  font-size: 1.6rem;
+  
+  /* Using muted earth for a professional, grounded header */
+  color: var(--muted-earth);
+  
+  margin-bottom: 22px;
+  text-align: center;
+}
+
+/* INPUTS */
+
+.input-wrapper {
+  margin-bottom: 18px;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 15px 16px;
+  border: 1px solid rgba(112, 171, 175, 0.2);
+  border-radius: 16px;
+  
+  /* Very slight tint for the input background */
+  background: #ffffff;
+  
+  color: var(--deep-charcoal);
+  font-size: .97rem;
+  transition: .2s ease;
+}
+
+.input-wrapper input::placeholder {
+  color: #9ca3af;
+}
+
+.input-wrapper input:focus {
+  outline: none;
+  background: white;
+  border-color: var(--slate-teal);
+  
+  /* Focus ring using the mint highlight */
+  box-shadow: 0 0 0 4px rgba(153, 225, 217, 0.4);
+}
+
+/* BUTTON */
+
+button {
+  width: 100%;
+  border: none;
+  border-radius: 16px;
+  padding: 15px;
+  
+  /* Primary Action: Deep Charcoal for a high-contrast, premium feel */
+  background: var(--deep-charcoal);
+  
+  color: var(--off-white);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .2s ease;
+  margin-top: 8px;
+}
+
+button:hover {
+  /* Hover shift toward the slate teal */
+  background: var(--muted-earth);
+  transform: translateY(-1px);
+}
+
+/* SWITCH TEXT / LINKS */
+
+.switch-text {
+  margin-top: 24px;
+  text-align: center;
+  color: var(--muted-earth);
+  font-size: .95rem;
+}
+
+.switch-text a {
+  /* Links use the teal to stand out against the earth tones */
+  color: var(--slate-teal);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ANIMATION */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* MOBILE OPTIMIZATION */
+
+@media(max-width:500px) {
+  .auth-card {
+    padding: 32px 24px;
+    border-radius: 24px;
+  }
+  .logo {
+    font-size: 1.8rem;
+  }
+  .auth-card h2 {
+    font-size: 1.4rem;
+  }
+}
