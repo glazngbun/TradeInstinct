@@ -30,7 +30,13 @@ function authMiddleware(req, res, next) {
 
     // Attach the user info to the request object so route handlers can use it.
     // e.g. in a protected route: const { user_id } = req.user;
-    req.user = { user_id: decoded.user_id };
+   const userId = parseInt(decoded.user_id, 10);
+   
+   if (isNaN(userId)) {
+  return res.status(401).json({ error: "Invalid token payload" });
+}
+
+req.user = { user_id: userId };
 
     next(); // everything checks out — proceed to the route handler
 
