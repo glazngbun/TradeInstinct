@@ -4,6 +4,7 @@ import { Readable }   from "stream";
 import crypto         from "crypto";
 import pool           from "../db.js";
 import authMiddleware from "../middleware/AuthMiddleware.js";
+import { runBehavioralAnalysis } from "../services/behavioralEngine.js";
 import { upload }     from "../middleware/MulterMiddleware.js";
 
 const router = express.Router();
@@ -76,7 +77,6 @@ async function insertBatch(client, batch, sessionId, userId) {
 // ── Upload route ──────────────────────────────────────────────────────────────
 router.post("/upload-csv", authMiddleware, upload.single("csvFile"), async (req, res) => {
 
-  console.log("user_id type:", typeof req.user.user_id, "value:", req.user.user_id);//temporary
 
 
   const client = await pool.connect(); // single transaction for whole upload
@@ -176,6 +176,10 @@ router.post("/upload-csv", authMiddleware, upload.single("csvFile"), async (req,
     );
 
     await client.query("COMMIT");
+
+    runBehavioralAnalysis(userId, sessionId).catch(err =>
+    console.error("Background analysis error:", err.message)
+    );
 
     res.json({
       success: true,
