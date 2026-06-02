@@ -1,13 +1,16 @@
-import express        from "express";
-import csv            from "csv-parser";
-import { Readable }   from "stream";
-import crypto         from "crypto";
-import pool           from "../db.js";
+import express from "express";
+import pool from "../db.js";
 import authMiddleware from "../middleware/AuthMiddleware.js";
+import { upload } from "../middleware/MulterMiddleware.js";
 import { runBehavioralAnalysis } from "../services/behavioralEngine.js";
-import { upload }     from "../middleware/MulterMiddleware.js";
+import csv from "csv-parser";
+import { Readable } from "stream";
+import crypto from "crypto";
+
+
 
 const router = express.Router();
+
 
 // ── Row validator ─────────────────────────────────────────────────────────────
 // Called on every parsed CSV row before it touches the database.
@@ -203,6 +206,67 @@ router.post("/upload-csv", authMiddleware, upload.single("csvFile"), async (req,
 
   } finally {
     client.release();
+  }
+});
+
+
+router.get('/summary', authMiddleware, async(req,res) => {
+    const userId = req.user.user_id
+
+    try{
+    const [flagSummary, heatmapData, recentFlags] = await Promise.all([
+        pool.query(`
+            SELECT flag_type, COUNT(*) as count, AVG(confidence) as avg_confidence
+            FROM behavioral_flags
+            WHERE user_id = $1
+            GROUP BY flag_type
+            ORDER BY count DESC`,
+            [userId]),
+
+        
+        //2. Heatmap - trade count + flag count  per data per ticker
+        pool.query(`
+            SELECT
+                DATE(t.executed_at) as date,
+                t.ticker,
+                    COUNT(t.trade_id) as trade_count,
+                    COUNT(bf.flag_id) as flag_count
+                FROM trades t
+                LEFT JOIN behavioral_flags bf ON bf.trade_id = t.trade_id
+                WHERE t.user_id = $1
+                GROUP BY DATE(t.executed_at), t.ticker
+                ORDER BY date ASC
+                `,[userId]),
+
+
+        //3. recent flags with trade context
+        pool.query(`
+            SELECT
+                bf.flag_type,
+                bf.confidence,
+                bf.metadata,
+                t.ticker,
+                t.action,
+                t.price,
+                t.quantity,
+                t.executed_at
+            FROM behavioral_flags bf
+            JOIN trades t ON t.trade_id = bf.trade_id
+            WHERE bf.user_id = $1
+            ORDER BY t.executed_at DESC
+            LIMIT 20
+        `, [userId]),
+
+    ])
+
+    res.json({
+        flag_summary  :flagSummary.rows,
+        heatmapData : heatmapData.rows,
+        recentFlags : recentFlags.rows
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: "Server error" });
   }
 });
 

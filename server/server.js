@@ -3,7 +3,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser'; // NEW: reads cookies from incoming requests
 import pool from './db.js';
 import authRoutes from './routes/AuthRoutes.js'
-import UploadRoutes from './routes/UploadRoutes.js'
+import DashboardRoutes from './routes/DashboardRoutes.js'
 
 const app = express();
 const PORT = 5000;
@@ -36,7 +36,7 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/auth", authRoutes);
-app.use("/dashboard", UploadRoutes)
+app.use("/dashboard", DashboardRoutes)
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

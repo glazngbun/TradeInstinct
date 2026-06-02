@@ -1,0 +1,187 @@
+body {
+  margin: 0;
+  background: #121110; /* Deep charcoal black */
+  color: #e6dfd5;      /* Clean cream-white for sharp contrast */
+  font-family: Inter, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dashboard {
+  max-width: 1200px;
+  margin: auto;
+  padding: 32px;
+}
+
+.header {
+  margin-bottom: 32px;
+  border-left: 4px solid #c69c72; /* Sleek espresso accent line */
+  padding-left: 16px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.header p {
+  color: #8c8275; /* Muted latte tone for secondary text */
+  margin: 4px 0 0 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* UI Cards - Keep them dark and crisp */
+.card {
+  background: #1c1a18; /* Rich obsidian black */
+  border: 1px solid #2c2824; /* Subtle dark border */
+  border-radius: 12px;
+  padding: 24px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+  border-color: #4a3f35; /* Subtle glow on hover */
+  transform: translateY(-2px);
+}
+
+.card span {
+  color: #8c8275;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.card h2 {
+  margin-top: 12px;
+  margin-bottom: 0;
+  color: #c69c72; /* Bright warmth only on the metrics */
+  font-size: 1.8rem;
+}
+
+.panel {
+  background: #1c1a18;
+  border: 1px solid #2c2824;
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.panel h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+  color: #e6dfd5; /* Keep panel titles clean white */
+}
+
+.insights li {
+  margin-bottom: 12px;
+  color: #cdc3b6;
+}
+
+/* Behavioral bars */
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 180px 1fr 40px;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.bar-label {
+  color: #cdc3b6;
+  font-size: 0.95rem;
+}
+
+.bar-track {
+  height: 8px;
+  background: #282420; /* Dark roasted coffee track */
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #8e6e53, #c69c72); /* Elegant coffee gradient */
+  border-radius: 999px;
+}
+
+.bar-value {
+  color: #8c8275;
+  font-weight: 600;
+  text-align: right;
+}
+.heatmap-wrapper {
+  overflow-x: auto;
+}
+
+.heatmap-table {
+  border-collapse: separate;
+  border-spacing: 6px;
+  width: max-content;
+}
+
+.heatmap-table th {
+  color: #b7aca0;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.ticker-cell {
+  color: #f5f1eb;
+  font-weight: 600;
+  padding-right: 12px;
+  white-space: nowrap;
+}
+
+.heat-square {
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  border: 1px solid #4a433d;
+}
+
+.heat-square:hover {
+  transform: scale(1.2);
+}
+/* Table */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  color: #8c8275;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+th,
+td {
+  padding: 14px 16px;
+  text-align: left;
+}
+
+thead {
+  border-bottom: 1px solid #2c2824;
+}
+
+tbody tr {
+  border-bottom: 1px solid #221f1c;
+  transition: background 0.15s ease;
+}
+
+tbody tr:hover {
+  background: #24201d; /* Slightly lighter warm-tinted black on hover */
+}

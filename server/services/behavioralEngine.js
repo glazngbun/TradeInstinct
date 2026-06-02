@@ -8,15 +8,15 @@ const FOMO_SPIKE_PERCENT          = 3.0; // 3% price jump before buy
 // ── Main entry point ──────────────────────────────────────────────────────────
 // Called after upload completes. Runs all detectors for the new session.
 export async function runBehavioralAnalysis(userId, sessionId) {
-  console.log(`🧠 Starting behavioral analysis for session ${sessionId}`);
+  console.log(` Starting behavioral analysis for session ${sessionId}`);
 
   try {
     await analyzeRevengeTrades(userId, sessionId);
     await analyzePanicSells(userId, sessionId);
     await analyzeFOMO(userId, sessionId);
-    console.log(`✅ Behavioral analysis complete for session ${sessionId}`);
+    console.log(` Behavioral analysis complete for session ${sessionId}`);
   } catch (err) {
-    console.error(`❌ Behavioral analysis failed for session ${sessionId}:`, err.message);
+    console.error(` Behavioral analysis failed for session ${sessionId}:`, err.message);
   }
 }
 
